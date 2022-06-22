@@ -27,23 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFECECA3),
       appBar: BaseAppBar(
         title: Text('Profil'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'profile',
-            style: TextStyle(fontSize: 30.0),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('<<back'),
-          ),
-        ],
       ),
     );
   }

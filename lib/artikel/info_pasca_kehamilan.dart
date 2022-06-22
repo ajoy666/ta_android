@@ -1,36 +1,39 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/material.dart';
+import 'package:ta_android/artikel/detail/ipk.dart';
+import 'package:ta_android/network/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ta_android/utilities/custom_appbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
-class NamePage extends StatefulWidget {
-  static const routeName = '/namepage';
+class InfoPascaKehamilanPage extends StatefulWidget {
+  static const routeName = '/infopascakehamilanpage';
 
   @override
-  State<NamePage> createState() => _NamePageState();
+  State<InfoPascaKehamilanPage> createState() => _InfoPascaKehamilanPageState();
 }
 
-final String url = 'http://localhost:8000/api/bn';
+final String url = 'http://localhost:8000/api/ipk';
 
-Future getBN() async {
+Future getIPK() async {
   var response = await http.get(Uri.parse(url));
   return json.decode(response.body);
 }
 
-class _NamePageState extends State<NamePage> {
+class _InfoPascaKehamilanPageState extends State<InfoPascaKehamilanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFECECA3),
       appBar: BaseAppBar(
-        title: Text('Nama Bayi & Arti'),
+        title: Text('Info Pasca Kehamilan (Artikel)'),
       ),
       body: FutureBuilder(
-        future: getBN(),
+        future: getIPK(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -45,11 +48,19 @@ class _NamePageState extends State<NamePage> {
                             children: <Widget>[
                               Card(
                                 child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => IPKDetail(
+                                            ipk: snapshot.data['data'][index],
+                                          ),
+                                        ));
+                                  },
                                   tileColor: Colors.green,
                                   title: Text(
-                                      snapshot.data['data'][index]['nama']),
-                                  subtitle: Text(
-                                      snapshot.data['data'][index]['arti']),
+                                      snapshot.data['data'][index]['judul']),
+                                  trailing: Icon(Icons.keyboard_arrow_right),
                                 ),
                               ),
                             ]),

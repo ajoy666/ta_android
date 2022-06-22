@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Color(0xff151515),
+      backgroundColor: Color(0xFFECECA3),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 28, vertical: 72),
@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
             children: [
               Card(
                 elevation: 4.0,
-                color: Colors.white10,
+                color: Color(0XFF607C3C),
                 margin: EdgeInsets.only(top: 86),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -54,7 +54,14 @@ class _LoginState extends State<Login> {
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: <Widget>[
+                        Container(
+                          width: 170.0,
+                          height: 170.0,
+                          child: Image.asset(
+                            'assets/images/logo1.png',
+                          ),
+                        ),
                         Text(
                           "Login",
                           textAlign: TextAlign.center,
@@ -132,36 +139,6 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 24,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Does'nt have an account? ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              // builder: (context) => Register(),
-                              ));
-                    },
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

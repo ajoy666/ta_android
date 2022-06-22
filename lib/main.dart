@@ -28,8 +28,16 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'artikel/info_kehamilan.dart';
+import 'artikel/info_pasca_kehamilan.dart';
+import 'artikel/info_menyusui.dart';
+import 'artikel/info_seputar_bayi.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
+import 'profile/profile_page.dart';
+import 'medicalRecord/trimester.dart';
+import 'babiesNames/names_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -46,10 +54,13 @@ class MyApp extends StatelessWidget {
       routes: {
         Home.routeName: (context) => Home(),
         Login.routeName: (context) => Login(),
-        // ProfilePage.routeName: (context) => ProfilePage(),
-        // TrimesterPage.routeName: (context) => TrimesterPage(),
-        // NamePage.routeName: (context) => NamePage(),
-        // InfoKehamilanPage.routeName: (context) => InfoKehamilanPage(),
+        InfoKehamilanPage.routeName: (context) => InfoKehamilanPage(),
+        ProfilePage.routeName: (context) => ProfilePage(),
+        Trimester.routeName: (context) => Trimester(),
+        NamePage.routeName: (context) => NamePage(),
+        InfoPascaKehamilanPage.routeName: (context) => InfoPascaKehamilanPage(),
+        InfoMenyusuiPage.routeName: (context) => InfoMenyusuiPage(),
+        InfoSeputarBayiPage.routeName: (context) => InfoSeputarBayiPage(),
       },
       darkTheme: ThemeData(
           brightness: Brightness.dark, accentColor: Colors.blueAccent),

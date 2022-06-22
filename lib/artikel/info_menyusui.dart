@@ -1,36 +1,39 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/material.dart';
+import 'package:ta_android/artikel/detail/im.dart';
 import 'package:ta_android/utilities/custom_appbar.dart';
+import 'package:ta_android/network/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
-class NamePage extends StatefulWidget {
-  static const routeName = '/namepage';
+class InfoMenyusuiPage extends StatefulWidget {
+  static const routeName = '/infomenyusuipage';
 
   @override
-  State<NamePage> createState() => _NamePageState();
+  State<InfoMenyusuiPage> createState() => _InfoMenyusuiPageState();
 }
 
-final String url = 'http://localhost:8000/api/bn';
+final String url = 'http://localhost:8000/api/im';
 
-Future getBN() async {
+Future getIM() async {
   var response = await http.get(Uri.parse(url));
   return json.decode(response.body);
 }
 
-class _NamePageState extends State<NamePage> {
+class _InfoMenyusuiPageState extends State<InfoMenyusuiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFECECA3),
       appBar: BaseAppBar(
-        title: Text('Nama Bayi & Arti'),
+        title: Text('Info Menyusui (Artikel)'),
       ),
       body: FutureBuilder(
-        future: getBN(),
+        future: getIM(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -45,11 +48,19 @@ class _NamePageState extends State<NamePage> {
                             children: <Widget>[
                               Card(
                                 child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => IMDetail(
+                                            im: snapshot.data['data'][index],
+                                          ),
+                                        ));
+                                  },
                                   tileColor: Colors.green,
                                   title: Text(
-                                      snapshot.data['data'][index]['nama']),
-                                  subtitle: Text(
-                                      snapshot.data['data'][index]['arti']),
+                                      snapshot.data['data'][index]['judul']),
+                                  trailing: Icon(Icons.keyboard_arrow_right),
                                 ),
                               ),
                             ]),

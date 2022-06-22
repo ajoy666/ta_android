@@ -1,36 +1,37 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/material.dart';
+import 'package:ta_android/artikel/detail/isb.dart';
 import 'package:ta_android/utilities/custom_appbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
-class NamePage extends StatefulWidget {
-  static const routeName = '/namepage';
+class InfoSeputarBayiPage extends StatefulWidget {
+  static const routeName = '/infoseputarbayipage';
 
   @override
-  State<NamePage> createState() => _NamePageState();
+  State<InfoSeputarBayiPage> createState() => _InfoSeputarBayiPageState();
 }
 
-final String url = 'http://localhost:8000/api/bn';
+final String url = 'http://localhost:8000/api/isb';
 
-Future getBN() async {
+Future getISB() async {
   var response = await http.get(Uri.parse(url));
   return json.decode(response.body);
 }
 
-class _NamePageState extends State<NamePage> {
+class _InfoSeputarBayiPageState extends State<InfoSeputarBayiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFECECA3),
       appBar: BaseAppBar(
-        title: Text('Nama Bayi & Arti'),
+        title: Text('Info Seputar Bayi (Artikel)'),
       ),
       body: FutureBuilder(
-        future: getBN(),
+        future: getISB(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -45,11 +46,19 @@ class _NamePageState extends State<NamePage> {
                             children: <Widget>[
                               Card(
                                 child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ISBDetail(
+                                            isb: snapshot.data['data'][index],
+                                          ),
+                                        ));
+                                  },
                                   tileColor: Colors.green,
                                   title: Text(
-                                      snapshot.data['data'][index]['nama']),
-                                  subtitle: Text(
-                                      snapshot.data['data'][index]['arti']),
+                                      snapshot.data['data'][index]['judul']),
+                                  trailing: Icon(Icons.keyboard_arrow_right),
                                 ),
                               ),
                             ]),
